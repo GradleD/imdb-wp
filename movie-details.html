@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Details - IMDBMovies</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-gray-900 text-white">
+    <nav class="bg-yellow-500 p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <img src="images/logo.png" alt="logo" class="w-32">
+            <div class="space-x-4">
+                <a href="index.html" class="hover:text-red-500">Home</a>
+                <a href="movies.html" class="hover:text-red-500">Movies</a>
+                <a href="tv-shows.html" class="hover:text-red-500">TV Shows</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto p-4 mt-8">
+        <div id="loading" class="text-center py-12">
+            <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-red-500 mx-auto"></div>
+            <p class="mt-4">Loading movie details...</p>
+        </div>
+        <div id="error" class="hidden text-center py-12">
+            <i class="fas fa-exclamation-triangle text-red-500 text-4xl mb-4"></i>
+            <h2 class="text-2xl font-bold mb-2">Error Loading Movie</h2>
+            <p class="text-gray-400 mb-4">We couldn't load the movie details. Please try again later.</p>
+            <a href="movies.html" class="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-md font-semibold inline-block">
+                Back to Movies
+            </a>
+        </div>
+        <div id="movieDetails" class="hidden">
+            <!-- Content will be loaded here -->
+        </div>
+    </main>
+
+    <script>
+        const movieId = new URLSearchParams(window.location.search).get('id');
+        const API_KEY = 'c6ec2e09b4242cea749e54637f68a2a8';
+        
+        // Check if movie ID exists
+        if (!movieId) {
+            window.location.href = 'movies.html';
+        }
+
+        async function fetchMovieDetails() {
+            try {
+                document.getElementById('loading').classList.remove('hidden');
+                document.getElementById('error').classList.add('hidden');
+                document.getElementById('movieDetails').classList.add('hidden');
+
+                const [movie, credits, videos] = await Promise.all([
+                    fetch(`https://api.themoviedb.org/3/movie/${movieId}?api_key=${API_KEY}`).then(r => r.json()),
+                    fetch(`https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${API_KEY}`).then(r => r.json()),
+                    fetch(`https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${API_KEY}`).then(r => r.json())
+                ]);
+
+                if (movie.success === false) {
+                    throw new Error(movie.status_message || 'Failed to load movie');
+                }
+
+                renderMovieDetails(movie, credits, videos);
+                document.getElementById('loading').classList.add('hidden');
+                document.getElementById('movieDetails').classList.remove('hidden');
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('loading').classList.add('hidden');
+                document.getElementById('error').classList.remove('hidden');
+            }
+        }
+
+        function renderMovieDetails(movie, credits, videos) {
+            const trailer = videos.results?.find(v => v.type === 'Trailer' && v.site === 'YouTube');
+            const director = credits.crew?.find(p => p.job === 'Director');
+            const cast = credits.cast?.slice(0, 5) || [];
+            
+            document.getElementById('movieDetails').innerHTML = `
+                <div class="flex flex-col md:flex-row gap-8">
+                    <div class="w-full md:w-1/3">
+                        <img src="${movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : 'https://via.placeholder.com/500x750?text=No+Poster'}" 
+                             alt="${movie.title}" 
+                             class="w-full rounded shadow-lg">
+                    </div>
+                    <div class="w-full md:w-2/3">
+                        <h1 class="text-3xl font-bold mb-2">${movie.title} <span class="text-gray-400">(${new Date(movie.release_date).getFullYear()})</span></h1>
+                        
+                        <div class="flex items-center gap-4 mb-4">
+                            <span class="px-2 py-1 bg-red-600 rounded">${movie.vote_average?.toFixed(1) || 'N/A'}</span>
+                            <span>${movie.runtime} min</span>
+                            <span>${movie.release_date}</span>
+                        </div>
+                        
+                        <p class="text-gray-300 mb-6">${movie.overview || 'No overview available.'}</p>
+                        
+                        ${trailer ? `
+                            <button onclick="window.open('https://youtube.com/watch?v=${trailer.key}', '_blank')" 
+                                    class="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-md font-semibold mb-6">
+                                <i class="fas fa-play mr-2"></i> Watch Trailer
+                            </button>
+                        ` : ''}
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <h4 class="font-semibold">Director</h4>
+                                <p class="text-gray-300">${director?.name || 'N/A'}</p>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold">Budget</h4>
+                                <p class="text-gray-300">${movie.budget ? new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD'}).format(movie.budget) : 'N/A'}</p>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold">Revenue</h4>
+                                <p class="text-gray-300">${movie.revenue ? new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD'}).format(movie.revenue) : 'N/A'}</p>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold">Genres</h4>
+                                <p class="text-gray-300">${movie.genres?.map(g => g.name).join(', ') || 'N/A'}</p>
+                            </div>
+                        </div>
+                        
+                        ${cast.length > 0 ? `
+                            <div class="mt-8">
+                                <h3 class="text-xl font-semibold mb-4">Top Cast</h3>
+                                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+                                    ${cast.map(person => `
+                                        <div class="text-center">
+                                            <img src="${person.profile_path ? `https://image.tmdb.org/t/p/w200${person.profile_path}` : 'https://via.placeholder.com/200x300?text=No+Image'}" 
+                                                 alt="${person.name}" 
+                                                 class="w-24 h-24 rounded-full mx-auto mb-2 object-cover">
+                                            <p class="font-medium text-sm">${person.name}</p>
+                                            <p class="text-xs text-gray-400">${person.character}</p>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        ` : ''}
+                    </div>
+                </div>
+            `;
+        }
+
+        // Load data when page loads
+        document.addEventListener('DOMContentLoaded', fetchMovieDetails);
+    </script>
+</body>
+</html>

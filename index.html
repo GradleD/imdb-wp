@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IMDBMovies - Watch Latest Movies & TV Shows</title>
+    <meta name="description" content="Watch latest Bollywood, Hollywood movies and TV shows online for free on IMDBMovies">
+    <meta name="keywords" content="IMDBMovies, Bollywood, Hollywood, Movies, TV Shows">
+    <meta name="author" content="IMDBMovies">
+    <link rel="icon" href="images/favicon.png">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Swiper JS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-gray-900 text-white">
+    <!-- Navigation -->
+    <nav class="bg-yellow-500 bg-opacity-90 fixed w-full z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex-shrink-0">
+                    <img src="images/logo.png" alt="IMDBMovies" class="w-32">
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden md:block">
+                    <div class="flex items-center space-x-8">
+                        <a href="index.html" class="text-white hover:text-red-500 transition">Home</a>
+                        <a href="movies.html" class="text-white hover:text-red-500 transition">Movies</a>
+                        <a href="tv-shows.html" class="text-white hover:text-red-500 transition">TV Shows</a>
+                        <a href="about.html" class="text-white hover:text-red-500 transition">About</a>
+                        <a href="contact.html" class="text-white hover:text-red-500 transition">Contact</a>
+                    </div>
+                </div>
+                
+                <!-- Search and User -->
+                <div class="flex items-center space-x-4 relative">
+                    <div class="relative">
+                        <input 
+                            type="text" 
+                            id="searchInput" 
+                            placeholder="Search movies and TV shows..." 
+                            class="bg-black bg-opacity-50 text-white px-4 py-2 rounded-full focus:outline-none focus:ring-2 focus:ring-red-500 w-64"
+                        >
+                        <button id="searchBtn" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white">
+                            <i class="fas fa-search"></i>
+                        </button>
+                        <div id="searchResults" class="hidden absolute left-0 right-0 mt-2 bg-gray-800 rounded-lg shadow-xl z-50 max-h-96 overflow-y-auto">
+                            <!-- Search results will be populated here -->
+                        </div>
+                    </div>
+                    <button id="mobileMenuBtn" class="md:hidden text-white">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div id="mobileMenu" class="md:hidden hidden bg-gray-900 pb-4">
+                <a href="index.html" class="block px-4 py-2 text-white hover:bg-gray-800">Home</a>
+                <a href="movies.html" class="block px-4 py-2 text-white hover:bg-gray-800">Movies</a>
+                <a href="tv-shows.html" class="block px-4 py-2 text-white hover:bg-gray-800">TV Shows</a>
+                <a href="about.html" class="block px-4 py-2 text-white hover:bg-gray-800">About</a>
+                <a href="contact.html" class="block px-4 py-2 text-white hover:bg-gray-800">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Carousel -->
+    <div class="swiper hero-carousel h-screen w-full">
+        <div class="swiper-wrapper">
+            <!-- Slide 1 -->
+            <div class="swiper-slide relative">
+                <div class="absolute inset-0 bg-black bg-opacity-60"></div>
+                <img src="https://image.tmdb.org/t/p/original/wwemzKWzjKYJFfCeiB57q3r4Bcm.png" 
+                     alt="Featured Movie" 
+                     class="w-full h-full object-cover">
+                <div class="absolute bottom-0 left-0 right-0 p-8 md:p-16 bg-gradient-to-t from-black to-transparent">
+                    <h2 class="text-3xl md:text-5xl font-bold mb-4">Featured Movie Title</h2>
+                    <p class="text-gray-300 mb-6 max-w-2xl">Watch the latest blockbuster movie with stunning visuals and an amazing storyline that will keep you on the edge of your seat.</p>
+                    <div class="flex space-x-4">
+                        <button class="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-md font-semibold">
+                            <i class="fas fa-play mr-2"></i> Watch Now
+                        </button>
+                        <button class="bg-gray-700 hover:bg-gray-600 text-white px-6 py-2 rounded-md font-semibold">
+                            <i class="fas fa-info-circle mr-2"></i> More Info
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Slide 2 -->
+            <div class="swiper-slide relative">
+                <div class="absolute inset-0 bg-black bg-opacity-60"></div>
+                <img src="https://image.tmdb.org/t/p/original/1XDDXPXGiI8id7MrUxK36ke7gkX.jpg" 
+                     alt="Popular TV Show" 
+                     class="w-full h-full object-cover">
+                <div class="absolute bottom-0 left-0 right-0 p-8 md:p-16 bg-gradient-to-t from-black to-transparent">
+                    <h2 class="text-3xl md:text-5xl font-bold mb-4">Popular TV Show</h2>
+                    <p class="text-gray-300 mb-6 max-w-2xl">Binge-watch the most talked-about TV series with amazing plot twists and character development.</p>
+                    <div class="flex space-x-4">
+                        <button class="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-md font-semibold">
+                            <i class="fas fa-play mr-2"></i> Watch Now
+                        </button>
+                        <button class="bg-gray-700 hover:bg-gray-600 text-white px-6 py-2 rounded-md font-semibold">
+                            <i class="fas fa-plus mr-2"></i> Add to List
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Slide 3 -->
+            <div class="swiper-slide relative">
+                <div class="absolute inset-0 bg-black bg-opacity-60"></div>
+                <img src="https://image.tmdb.org/t/p/original/7RyHsO4yDXtBv1zUU3mTpHeQ0d5.jpg" 
+                     alt="New Release" 
+                     class="w-full h-full object-cover">
+                <div class="absolute bottom-0 left-0 right-0 p-8 md:p-16 bg-gradient-to-t from-black to-transparent">
+                    <h2 class="text-3xl md:text-5xl font-bold mb-4">New Release</h2>
+                    <p class="text-gray-300 mb-6 max-w-2xl">Be the first to watch our latest additions to the streaming library, updated weekly with fresh content.</p>
+                    <div class="flex space-x-4">
+                        <button class="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-md font-semibold">
+                            <i class="fas fa-play mr-2"></i> Watch Now
+                        </button>
+                        <button class="bg-gray-700 hover:bg-gray-600 text-white px-6 py-2 rounded-md font-semibold">
+                            <i class="fas fa-bell mr-2"></i> Get Notified
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Navigation Buttons -->
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+        
+        <!-- Pagination -->
+        <div class="swiper-pagination"></div>
+    </div>
+
+    <!-- Content will be loaded here -->
+    <div id="app" class="py-12">
+        <!-- Content will be dynamically loaded -->
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-black text-gray-400 py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <img src="images/logo.png" alt="logo" class="w-32">
+                    <p>Your one-stop destination for all the latest movies and TV shows.</p>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="hover:text-white">Home</a></li>
+                        <li><a href="movies.html" class="hover:text-white">Movies</a></li>
+                        <li><a href="tv-shows.html" class="hover:text-white">TV Shows</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Legal</h4>
+                    <ul class="space-y-2">
+                        <li><a href="privacy-policy.html" class="hover:text-white">Privacy Policy</a></li>
+                        <li><a href="terms-of-service.html" class="hover:text-white">Terms of Service</a></li>
+                        <li><a href="dmca.html" class="hover:text-white">DMCA</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Contact</h4>
+                    <p>Email: info@imdbmovies.com</p>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center">
+                <p>&copy; 2025 IMDBMovies. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Initialize Swiper
+        const swiper = new Swiper('.hero-carousel', {
+            // Optional parameters
+            loop: true,
+            autoplay: {
+                delay: 5000,
+                disableOnInteraction: false,
+            },
+            effect: 'fade',
+            fadeEffect: {
+                crossFade: true
+            },
+            speed: 1000,
+            
+            // Navigation arrows
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            
+            // Pagination
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+        });
+
+        // Mobile menu toggle
+        document.getElementById('mobileMenuBtn').addEventListener('click', () => {
+            document.getElementById('mobileMenu').classList.toggle('hidden');
+        });
+    </script>
+    
+    <script src="js/main.js"></script>
+</body>
+</html>

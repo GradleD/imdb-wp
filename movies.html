@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Popular Movies - BollyFlixTV</title>
+    <meta name="description" content="Watch popular movies online for free on BollyFlixTV">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-gray-900 text-white">
+    <!-- Navigation (same as index.html) -->
+    <nav class="bg-yellow-500 bg-opacity-90 fixed w-full z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex-shrink-0">
+                    <img src="images/logo.png" alt="logo" class="w-32">
+                </div>
+                <div class="hidden md:block">
+                    <div class="flex items-center space-x-8">
+                        <a href="index.html" class="text-white hover:text-red-500 transition">Home</a>
+                        <a href="movies.html" class="text-white hover:text-red-500 transition font-semibold text-red-500">Movies</a>
+                        <a href="tv-shows.html" class="text-white hover:text-red-500 transition">TV Shows</a>
+                        <a href="about.html" class="text-white hover:text-red-500 transition">About</a>
+                        <a href="contact.html" class="text-white hover:text-red-500 transition">Contact</a>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4 relative">
+                    <div class="relative">
+                        <input 
+                            type="text" 
+                            id="searchInput" 
+                            placeholder="Search movies and TV shows..." 
+                            class="bg-black bg-opacity-50 text-white px-4 py-2 rounded-full focus:outline-none focus:ring-2 focus:ring-red-500 w-64"
+                        >
+                        <button id="searchBtn" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white">
+                            <i class="fas fa-search"></i>
+                        </button>
+                        <div id="searchResults" class="hidden absolute left-0 right-0 mt-2 bg-gray-800 rounded-lg shadow-xl z-50 max-h-96 overflow-y-auto">
+                            <!-- Search results will be populated here -->
+                        </div>
+                    </div>
+                    <button id="mobileMenuBtn" class="md:hidden text-white">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+            <div id="mobileMenu" class="md:hidden hidden bg-gray-900 pb-4">
+                <a href="index.html" class="block px-4 py-2 text-white hover:bg-gray-800">Home</a>
+                <a href="movies.html" class="block px-4 py-2 text-white hover:bg-gray-800 bg-gray-800">Movies</a>
+                <a href="tv-shows.html" class="block px-4 py-2 text-white hover:bg-gray-800">TV Shows</a>
+                <a href="about.html" class="block px-4 py-2 text-white hover:bg-gray-800">About</a>
+                <a href="contact.html" class="block px-4 py-2 text-white hover:bg-gray-800">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="pt-24 pb-16 min-h-screen">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-8">
+                <h1 class="text-3xl font-bold mb-4 md:mb-0">Popular Movies</h1>
+                <div class="flex items-center space-x-4">
+                    <div class="relative">
+                        <select id="sortBy" class="bg-gray-800 text-white rounded-md px-4 py-2 pr-8 appearance-none focus:outline-none focus:ring-2 focus:ring-red-500">
+                            <option value="popular">Most Popular</option>
+                            <option value="top_rated">Top Rated</option>
+                            <option value="now_playing">Now Playing</option>
+                            <option value="upcoming">Upcoming</option>
+                        </select>
+                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-400">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                    </div>
+                    <div class="relative">
+                        <select id="genreFilter" class="bg-gray-800 text-white rounded-md px-4 py-2 pr-8 appearance-none focus:outline-none focus:ring-2 focus:ring-red-500">
+                            <option value="">All Genres</option>
+                            <!-- Genres will be populated by JavaScript -->
+                        </select>
+                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-400">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="moviesGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+                <!-- Movies will be loaded here -->
+                <div class="animate-pulse bg-gray-800 rounded-lg h-80"></div>
+                <div class="animate-pulse bg-gray-800 rounded-lg h-80"></div>
+                <div class="animate-pulse bg-gray-800 rounded-lg h-80 hidden sm:block"></div>
+                <div class="animate-pulse bg-gray-800 rounded-lg h-80 hidden md:block"></div>
+                <div class="animate-pulse bg-gray-800 rounded-lg h-80 hidden lg:block"></div>
+            </div>
+            
+            <div class="flex justify-center mt-12">
+                <button id="loadMore" class="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-md font-medium">
+                    Load More
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer (same as index.html) -->
+    <footer class="bg-black text-gray-400 py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-white text-xl font-bold mb-4">BollyFlixTV</h3>
+                    <p>Your one-stop destination for all the latest movies and TV shows.</p>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="hover:text-white">Home</a></li>
+                        <li><a href="movies.html" class="hover:text-white">Movies</a></li>
+                        <li><a href="tv-shows.html" class="hover:text-white">TV Shows</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Legal</h4>
+                    <ul class="space-y-2">
+                        <li><a href="privacy-policy.html" class="hover:text-white">Privacy Policy</a></li>
+                        <li><a href="terms-of-service.html" class="hover:text-white">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Contact</h4>
+                    <p>Email: info@bollyflixtv.com</p>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center">
+                <p>&copy; 2023 BollyFlixTV. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/movies.js"></script>
+    <script src="js/search.js"></script>
+</body>
+</html>

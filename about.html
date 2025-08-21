@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - IMDBMovies</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-gray-900 text-white">
+    <nav class="bg-yellow-500 bg-opacity-90 fixed w-full z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <img src="images/logo.png" alt="logo" class="w-32">
+                <div class="hidden md:flex space-x-8">
+                    <a href="index.html" class="hover:text-red-500">Home</a>
+                    <a href="movies.html" class="hover:text-red-500">Movies</a>
+                    <a href="tv-shows.html" class="hover:text-red-500">TV Shows</a>
+                    <a href="about.html" class="text-red-500 font-semibold">About</a>
+                    <a href="contact.html" class="hover:text-red-500">Contact</a>
+                </div>
+                <button id="mobileMenuBtn" class="md:hidden">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+            <div id="mobileMenu" class="md:hidden hidden bg-gray-900 pb-4">
+                <a href="index.html" class="block px-4 py-2 hover:bg-gray-800">Home</a>
+                <a href="movies.html" class="block px-4 py-2 hover:bg-gray-800">Movies</a>
+                <a href="tv-shows.html" class="block px-4 py-2 hover:bg-gray-800">TV Shows</a>
+                <a href="about.html" class="block px-4 py-2 bg-gray-800">About</a>
+                <a href="contact.html" class="block px-4 py-2 hover:bg-gray-800">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="pt-32 pb-16 min-h-screen px-4">
+        <div class="max-w-4xl mx-auto">
+            <h1 class="text-4xl font-bold text-center mb-12">About IMDBMovies</h1>
+            
+            <div class="bg-gray-800 rounded-lg p-8 mb-12">
+                <h2 class="text-2xl font-bold mb-6 text-red-500">Our Story</h2>
+                <p class="text-gray-300 mb-6">
+                    Founded in 2024, IMDBMovies is your go-to platform for streaming the latest movies and TV shows.
+                    We're dedicated to providing high-quality entertainment to viewers worldwide, completely free of charge.
+                </p>
+                
+                <h2 class="text-2xl font-bold my-6 text-red-500">Why Choose Us?</h2>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="text-center p-4">
+                        <div class="w-16 h-16 bg-red-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-film text-2xl"></i>
+                        </div>
+                        <h4 class="font-bold">Huge Library</h4>
+                        <p class="text-sm text-gray-300">Thousands of titles</p>
+                    </div>
+                    <div class="text-center p-4">
+                        <div class="w-16 h-16 bg-red-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-tv text-2xl"></i>
+                        </div>
+                        <h4 class="font-bold">HD Quality</h4>
+                        <p class="text-sm text-gray-300">Crystal clear streaming</p>
+                    </div>
+                    <div class="text-center p-4">
+                        <div class="w-16 h-16 bg-red-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-mobile-alt text-2xl"></i>
+                        </div>
+                        <h4 class="font-bold">Any Device</h4>
+                        <p class="text-sm text-gray-300">Watch anywhere, anytime</p>
+                    </div>
+                </div>
+                
+                <div class="mt-12 text-center">
+                    <a href="contact.html" class="bg-red-600 hover:bg-red-700 text-white px-8 py-3 rounded-md font-medium inline-block">
+                        Contact Us
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-black text-gray-400 py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-white text-xl font-bold mb-4">IMDBMovies</h3>
+                    <p>Your entertainment destination</p>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="hover:text-white">Home</a></li>
+                        <li><a href="movies.html" class="hover:text-white">Movies</a></li>
+                        <li><a href="tv-shows.html" class="hover:text-white">TV Shows</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Legal</h4>
+                    <ul class="space-y-2">
+                        <li><a href="privacy-policy.html" class="hover:text-white">Privacy Policy</a></li>
+                        <li><a href="terms-of-service.html" class="hover:text-white">Terms</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Contact</h4>
+                    <p>Email: info@imdbmovies.live</p>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center">
+                <p>&copy; 2025 IMDBMovies. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobileMenuBtn').addEventListener('click', () => {
+            document.getElementById('mobileMenu').classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>
